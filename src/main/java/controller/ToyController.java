@@ -9,11 +9,13 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
+import mapper.ToyMapper;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import repository.ToyRepository;
 import service.ToyService;
 
 @Slf4j
@@ -22,7 +24,33 @@ import service.ToyService;
 public class ToyController {
 
   @Inject
+  ToyRepository repository;
+
+  @Inject
+  ToyMapper mapper;
+
+  @Inject
   ToyService toyService;
+
+  @APIResponses(
+      value = {
+          @APIResponse(
+              responseCode = "200",
+              description = "Ok",
+              content = @Content(schema = @Schema(implementation = String.class))
+          ),
+          @APIResponse(
+              responseCode = "500",
+              description = "Internal server error",
+              content = @Content(schema = @Schema(implementation = InternalServerErrorException.class))
+          )
+      }
+  )
+  @GET
+  @Path("/hello")
+  public Response getHello() {
+    return Response.ok("Hello world").build();
+  }
 
   @APIResponses(
       value = {
@@ -38,12 +66,6 @@ public class ToyController {
           )
       }
   )
-  @GET
-  @Path("/hello")
-  public Response getHello() {
-    return Response.ok("Hello world").build();
-  }
-
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response post(@Valid @NotNull ToyRequestDTO dto) {
@@ -52,7 +74,9 @@ public class ToyController {
     //post to service
     //map it to dto
     //respond with dto
-    return Response.ok("Still gotta implement post for " + dto.toString()).build();
+    var newToyEntry = toyService.create(dto);
+    var response = mapper.toDto(newToyEntry);
+    return Response.ok(response).build();
   }
 
   @DELETE

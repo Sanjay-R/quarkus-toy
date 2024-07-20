@@ -9,9 +9,7 @@ public record ToyResponseDTO(
     int id,
 
     @NotNull(message = "Name may not be null.")
-    String name,
+    String name
 
-    @Schema(description = "This is a random number for the fun of it, and to test out mapping to DTO", example = "279", maxLength = 3)
-    int randomNumber
 ) {
 }

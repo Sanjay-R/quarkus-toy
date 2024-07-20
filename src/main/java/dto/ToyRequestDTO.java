@@ -1,12 +1,12 @@
 package dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class ToyRequestDTO {
 
-  @NotNull(message = "Name may not be null.")
+  @NotBlank(message = "Name may not be blank.")
   private String name;
 
 }
