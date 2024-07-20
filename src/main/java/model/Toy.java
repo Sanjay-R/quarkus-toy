@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-class Toy {
+public class Toy {
 
   @NotNull
   private int id;

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -15,6 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import service.ToyService;
 
+@Slf4j
 @Path("/v1/toy")
 @Tag(name = "Toy", description = "This is a controller for a toy/fake application, and can be used just to get started.")
 public class ToyController {
@@ -57,7 +59,7 @@ public class ToyController {
   @Path("/{id}")
   public Response delete(@PathParam("id") String id) {
     //todo: service delete
-    System.out.printf("Deleting for id %s%n", id);
+    log.info("Deleting for id {}", id);
     return Response.noContent().build();
   }
 }

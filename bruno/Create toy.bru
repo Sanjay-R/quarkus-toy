@@ -1,0 +1,17 @@
+meta {
+  name: Create toy
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/v1/toy
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "bla"
+  }
+}
