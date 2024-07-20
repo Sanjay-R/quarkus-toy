@@ -38,10 +38,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-panache</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.quarkus</groupId>-->
+<!--            <artifactId>quarkus-hibernate-orm-panache</artifactId>-->
+<!--        </dependency>-->
+        <!-- JDBC driver dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-mysql</artifactId>
@@ -66,6 +67,22 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.0.2</version>
         </dependency>
+        <!-- Flyway specific dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-flyway</artifactId>
+        </dependency>
+        <!-- Flyway MariaDB/MySQL specific dependencies -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
+        <!-- MySQL JDBC Driver -->
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <version>8.0.30</version> &lt;!&ndash; Use a compatible version &ndash;&gt;-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

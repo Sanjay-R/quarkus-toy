@@ -7,7 +7,7 @@ import lombok.Data;
 class Toy {
 
   @NotNull
-  private String id;
+  private int id;
   private String name;
 
 }

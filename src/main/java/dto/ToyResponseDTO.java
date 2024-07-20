@@ -1,18 +1,17 @@
 package dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 public record ToyResponseDTO(
 
-        @NotBlank
-        @Schema(example = "1")
-        String id,
+    @Schema(example = "1")
+    int id,
 
-        @NotNull(message = "Name may not be null.")
-        String name,
+    @NotNull(message = "Name may not be null.")
+    String name,
 
-        int randomNumberForTheLol
+    @Schema(description = "This is a random number for the fun of it, and to test out mapping to DTO", example = "279823", maxLength = 3)
+    int randomNumber
 ) {
 }

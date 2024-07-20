@@ -8,11 +8,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Data
 public class ToyRequestDTO {
 
-    @NotBlank
-    @Schema(example = "1")
-    private String id;
+  @NotBlank
+  @Schema(example = "1")
+  private String id;
 
-    @NotNull(message = "Name may not be null.")
-    private String name;
+  @NotNull(message = "Name may not be null.")
+  private String name;
 
 }

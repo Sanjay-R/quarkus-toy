@@ -1,0 +1,26 @@
+#version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: toydb
+    ports:
+      - "5432:3306"  # Expose MySQL on port 5432 of the host machine
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+#  flyway:
+#    image: flyway/flyway:9.4.0
+#    container_name: flyway
+#    command: -url=jdbc:mysql://mysql:3306/toydb -user=root -password=password migrate
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+#    volumes:
+#      - ./sql:/flyway/sql
+
+volumes:
+  mysql_data:
