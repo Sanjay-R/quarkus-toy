@@ -4,27 +4,25 @@ import dto.ToyRequestDTO;
 import dto.ToyResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 import mapper.ToyMapper;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import repository.ToyRepository;
 import service.ToyService;
 
 @Slf4j
 @Path("/v1/toy")
 @Tag(name = "Toy", description = "This is a controller for a toy/fake application, and can be used just to get started.")
 public class ToyController {
-
-  @Inject
-  ToyRepository repository;
 
   @Inject
   ToyMapper mapper;
@@ -55,8 +53,8 @@ public class ToyController {
   @APIResponses(
       value = {
           @APIResponse(
-              responseCode = "200",
-              description = "Ok",
+              responseCode = "201",
+              description = "Created",
               content = @Content(schema = @Schema(implementation = ToyResponseDTO.class))
           ),
           @APIResponse(
@@ -66,13 +64,17 @@ public class ToyController {
           )
       }
   )
+  @Operation(
+      summary = "Creates a new example entry for this toy application",
+      description = "The name in the request does not have to be unique"
+  )
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response post(@Valid @NotNull ToyRequestDTO dto) {
     log.info("Creating new toy entry to the database for name={}", dto.getName());
     var newToyEntry = toyService.create(dto);
     var response = mapper.toDto(newToyEntry);
-    return Response.ok(response).build();
+    return Response.ok(response).status(Response.Status.CREATED).build();
   }
 
   @APIResponses(
@@ -88,9 +90,13 @@ public class ToyController {
           )
       }
   )
+  @Operation(
+      summary = "Deletes an entry for this toy application",
+      description = "The id must exist in the database"
+  )
   @DELETE
   @Path("/{id}")
-  public Response delete(@PathParam("id") @NotNull int id) {
+  public Response delete(@PathParam("id") @NotBlank Integer id) {
     log.info("Deleting toy entry for id={}", id);
     toyService.delete(id);
     return Response.noContent().build();

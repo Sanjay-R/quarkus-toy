@@ -8,7 +8,7 @@ public record ToyResponseDTO(
     @Schema(example = "1")
     int id,
 
-    @NotNull(message = "Name may not be null.")
+    @NotNull(message = "Name may not be null")
     String name
 
 ) {
