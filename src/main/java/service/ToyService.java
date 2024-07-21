@@ -21,13 +21,22 @@ public class ToyService {
 
   @Transactional
   public Toy create(ToyRequestDTO requestDTO) {
-    log.info("Creating toy entry with name {}", requestDTO.getName());
-
     var domain = mapper.toDomain(requestDTO);
     var entity = mapper.toEntity(domain);
     repository.persist(entity);
 
     return mapper.toDomain(entity);
+  }
+
+  @Transactional
+  public void delete(int id) {
+    var item = repository.findById(id);
+    if (item.isEmpty()) {
+      log.info("There was no entry present with id={}", id);
+    } else {
+      repository.delete("id", id);
+      log.info("Deleted toy entry with id={}", id);
+    }
   }
 
 

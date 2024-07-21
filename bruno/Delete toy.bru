@@ -1,0 +1,15 @@
+meta {
+  name: Delete toy
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{host}}/v1/toy/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 2
+}

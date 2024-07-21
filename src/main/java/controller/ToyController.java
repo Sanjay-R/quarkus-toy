@@ -69,21 +69,30 @@ public class ToyController {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response post(@Valid @NotNull ToyRequestDTO dto) {
-    //create entry to temp db
-    //todo: implement^
-    //post to service
-    //map it to dto
-    //respond with dto
+    log.info("Creating new toy entry to the database for name={}", dto.getName());
     var newToyEntry = toyService.create(dto);
     var response = mapper.toDto(newToyEntry);
     return Response.ok(response).build();
   }
 
+  @APIResponses(
+      value = {
+          @APIResponse(
+              responseCode = "204",
+              description = "No content"
+          ),
+          @APIResponse(
+              responseCode = "500",
+              description = "Internal server error",
+              content = @Content(schema = @Schema(implementation = InternalServerErrorException.class))
+          )
+      }
+  )
   @DELETE
   @Path("/{id}")
-  public Response delete(@PathParam("id") String id) {
-    //todo: service delete
-    log.info("Deleting for id {}", id);
+  public Response delete(@PathParam("id") @NotNull int id) {
+    log.info("Deleting toy entry for id={}", id);
+    toyService.delete(id);
     return Response.noContent().build();
   }
 }
