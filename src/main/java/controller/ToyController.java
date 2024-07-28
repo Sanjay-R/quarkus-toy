@@ -55,6 +55,36 @@ public class ToyController {
   @APIResponses(
       value = {
           @APIResponse(
+              responseCode = "200",
+              description = "Ok",
+              content = @Content(schema = @Schema(implementation = ToyResponseDTO.class))
+          ),
+          @APIResponse(
+              responseCode = "404",
+              description = "Not found",
+              content = @Content(schema = @Schema(implementation = NotFoundException.class))
+          ),
+          @APIResponse(
+              responseCode = "500",
+              description = "Internal server error",
+              content = @Content(schema = @Schema(implementation = InternalServerErrorException.class))
+          )
+      }
+  )
+  @Operation(
+      summary = "Gets all the example entries for this toy application by the given ids",
+      description = "When no id query params are given this returns every entry from the database"
+  )
+  @GET
+  public Response getAll(@QueryParam("id") List<Integer> ids) {
+    log.info("Getting all the entries in the database (that match the given ids)");
+    var response = toyService.getAll(ids);
+    return Response.ok(response).status(Response.Status.OK).build();
+  }
+
+  @APIResponses(
+      value = {
+          @APIResponse(
               responseCode = "201",
               description = "Created",
               content = @Content(schema = @Schema(implementation = ToyResponseDTO.class))
@@ -104,30 +134,4 @@ public class ToyController {
     return Response.noContent().build();
   }
 
-
-  @APIResponses(
-      value = {
-          @APIResponse(
-              responseCode = "200",
-              description = "Ok",
-              content = @Content(schema = @Schema(implementation = ToyResponseDTO.class))
-          ),
-          @APIResponse(
-              responseCode = "404",
-              description = "Not found",
-              content = @Content(schema = @Schema(implementation = NotFoundException.class))
-          ),
-          @APIResponse(
-              responseCode = "500",
-              description = "Internal server error",
-              content = @Content(schema = @Schema(implementation = InternalServerErrorException.class))
-          )
-      }
-  )
-  @GET
-  public Response getAll(@QueryParam("id") List<Integer> ids) {
-    log.info("Getting all the entries in the database (that match the given ids)");
-    var response = toyService.getAll(ids);
-    return Response.ok(response).status(Response.Status.OK).build();
-  }
 }

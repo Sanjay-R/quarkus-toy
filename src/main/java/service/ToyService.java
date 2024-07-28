@@ -25,27 +25,6 @@ public class ToyService {
   ToyMapper mapper;
 
   @Transactional
-  public Toy create(ToyRequestDTO requestDTO) {
-    var domain = mapper.toDomain(requestDTO);
-    var entity = mapper.toEntity(domain);
-    repository.persist(entity);
-
-    return mapper.toDomain(entity);
-  }
-
-  @Transactional
-  public void delete(int id) {
-    var item = repository.getById(id);
-
-    if (item.isEmpty()) {
-      log.info("There was no entry present with id={}", id);
-    } else {
-      repository.delete("id", id);
-      log.info("Deleted toy entry with id={}", id);
-    }
-  }
-
-  @Transactional
   public List<Toy> getAll(List<Integer> ids) {
     List<ToyEntity> entities;
 
@@ -65,6 +44,27 @@ public class ToyService {
     }
 
     return mapper.toDomain(entities);
+  }
+
+  @Transactional
+  public Toy create(ToyRequestDTO requestDTO) {
+    var domain = mapper.toDomain(requestDTO);
+    var entity = mapper.toEntity(domain);
+    repository.persist(entity);
+
+    return mapper.toDomain(entity);
+  }
+
+  @Transactional
+  public void delete(int id) {
+    var item = repository.getById(id);
+
+    if (item.isEmpty()) {
+      log.info("There was no entry present with id={}", id);
+    } else {
+      repository.delete("id", id);
+      log.info("Deleted toy entry with id={}", id);
+    }
   }
 
 
