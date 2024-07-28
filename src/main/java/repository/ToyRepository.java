@@ -13,11 +13,6 @@ public class ToyRepository implements PanacheRepositoryBase<ToyEntity, Integer> 
     return findByIdOptional(id);
   }
 
-  //todo: test this out
-  public List<ToyEntity> getByIds(List<Integer> ids) {
-    return find("id", ids).stream().toList();
-  }
-
   public List<ToyEntity> getAll() {
     return findAll().stream().toList();
   }
