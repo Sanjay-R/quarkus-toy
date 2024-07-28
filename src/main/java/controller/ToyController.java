@@ -134,4 +134,28 @@ public class ToyController {
     return Response.noContent().build();
   }
 
+  @APIResponses(
+      value = {
+          @APIResponse(
+              responseCode = "204",
+              description = "No content"
+          ),
+          @APIResponse(
+              responseCode = "500",
+              description = "Internal server error",
+              content = @Content(schema = @Schema(implementation = InternalServerErrorException.class))
+          )
+      }
+  )
+  @Operation(
+      summary = "Deletes all entries for this toy application",
+      description = "The id must exist in the database"
+  )
+  @DELETE
+  public Response deleteAll() {
+    log.info("Deleting all toy entries");
+    toyService.deleteAll();
+    return Response.noContent().build();
+  }
+
 }

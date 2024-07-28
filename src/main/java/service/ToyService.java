@@ -67,5 +67,10 @@ public class ToyService {
     }
   }
 
+  @Transactional
+  public void deleteAll() {
+    repository.deleteAll();
+    log.info("Deleted all toy entries from the database");
+  }
 
 }
