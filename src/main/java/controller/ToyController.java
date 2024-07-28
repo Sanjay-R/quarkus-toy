@@ -19,6 +19,8 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import service.ToyService;
 
+import java.util.List;
+
 @Slf4j
 @Path("/v1/toy")
 @Tag(name = "Toy", description = "This is a controller for a toy/fake application, and can be used just to get started.")
@@ -100,5 +102,32 @@ public class ToyController {
     log.info("Deleting toy entry for id={}", id);
     toyService.delete(id);
     return Response.noContent().build();
+  }
+
+
+  @APIResponses(
+      value = {
+          @APIResponse(
+              responseCode = "200",
+              description = "Ok",
+              content = @Content(schema = @Schema(implementation = ToyResponseDTO.class))
+          ),
+          @APIResponse(
+              responseCode = "404",
+              description = "Not found",
+              content = @Content(schema = @Schema(implementation = NotFoundException.class))
+          ),
+          @APIResponse(
+              responseCode = "500",
+              description = "Internal server error",
+              content = @Content(schema = @Schema(implementation = InternalServerErrorException.class))
+          )
+      }
+  )
+  @GET
+  public Response getAll(@QueryParam("id") List<Integer> ids) {
+    log.info("Getting all the entries in the database (that match the given ids)");
+    var response = toyService.getAll(ids);
+    return Response.ok(response).status(Response.Status.OK).build();
   }
 }

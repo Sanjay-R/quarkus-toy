@@ -5,7 +5,12 @@ meta {
 }
 
 get {
-  url: {{host}}/v1/toy
+  url: {{host}}/v1/toy?ids=1&ids=2
   body: none
   auth: none
+}
+
+params:query {
+  ids: 1
+  ids: 2
 }

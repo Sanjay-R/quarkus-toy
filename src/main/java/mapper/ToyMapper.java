@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import repository.ToyEntity;
 
+import java.util.List;
 import java.util.Random;
 
 @Mapper(componentModel = "jakarta", uses = ToyMapper.RandomUtil.class)
@@ -18,6 +19,8 @@ public interface ToyMapper {
   Toy toDomain(ToyRequestDTO dto);
 
   Toy toDomain(ToyEntity entity);
+
+  List<Toy> toDomain(List<ToyEntity> entities);
 
   @Mapping(target = "randomNumber", expression = "java(RandomUtil.generateRandom3DigitNumber())")
   ToyEntity toEntity(Toy domain);
