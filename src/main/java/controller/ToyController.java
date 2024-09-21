@@ -106,6 +106,7 @@ public class ToyController {
     log.info("Creating new toy entry to the database for name={}", dto.getName());
     var newToyEntry = toyService.create(dto);
     var response = mapper.toDto(newToyEntry);
+    log.info("New toy entry created: {}", response.toString());
     return Response.ok(response).status(Response.Status.CREATED).build();
   }
 

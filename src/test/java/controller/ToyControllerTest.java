@@ -24,7 +24,6 @@ class ToyControllerTest {
 
   @Test
   void getHelloTest() {
-    System.out.println("url string is " + url.toString());
     given()
         .when()
         .get(url.toString() + "/hello")
@@ -51,15 +50,16 @@ class ToyControllerTest {
 
   @Test
   void deleteTest() {
-    given()
+    var response = given()
         .contentType(ContentType.JSON)
         .body(new ToyRequestDTO("to delete"))
         .when()
-        .post(url.toString());
+        .post(url.toString())
+        .then().extract().as(ToyResponseDTO.class);
 
     given()
         .when()
-        .delete(url.toString() + "/2")
+        .delete("%s/%s".formatted(url.toString(), response.id()))
         .then()
         .statusCode(Response.Status.NO_CONTENT.getStatusCode());
   }
