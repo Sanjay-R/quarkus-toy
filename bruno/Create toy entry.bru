@@ -1,7 +1,7 @@
 meta {
   name: Create toy entry
   type: http
-  seq: 4
+  seq: 2
 }
 
 post {
@@ -14,4 +14,8 @@ body:json {
   {
     "name": "Robert"
   }
+}
+
+vars:post-response {
+  created: res.body.id
 }
