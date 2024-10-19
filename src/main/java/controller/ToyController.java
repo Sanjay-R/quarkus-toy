@@ -49,6 +49,7 @@ public class ToyController {
   @GET
   @Path("/hello")
   public Response getHello() {
+    log.info("Getting hello world");
     return Response.ok("Hello world").build();
   }
 

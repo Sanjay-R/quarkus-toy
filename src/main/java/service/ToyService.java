@@ -17,18 +17,18 @@ import java.util.Objects;
 public class ToyService {
 
   @Inject
-  ToyRepository repository;
+  ToyRepository toyRepository;
 
   public List<Toy> getAll(List<Integer> ids) {
     List<Toy> toys;
 
     if (ids.isEmpty()) {
       log.info("Getting all entries");
-      toys = repository.getAll();
+      toys = toyRepository.getAll();
     } else {
       log.info("Getting entries for ids {}", ids);
       toys = ids.stream()
-          .map(x -> repository.getById(x))
+          .map(x -> toyRepository.getById(x))
           .filter(Objects::nonNull)
           .toList();
       if (toys.isEmpty()) {
@@ -42,17 +42,17 @@ public class ToyService {
 
   public Toy create(ToyRequestDTO requestDTO) {
     log.info("Creating a new toy entry");
-    return repository.create(requestDTO);
+    return toyRepository.create(requestDTO);
   }
 
   public void delete(int id) {
-    repository.delete(id);
+    toyRepository.delete(id);
     log.info("Deleted toy entry with id={}", id);
   }
 
   @Transactional
   public void deleteAll() {
-    repository.deleteAll();
+    toyRepository.deleteAll();
     log.info("Deleted all toy entries from the database");
   }
 
