@@ -5,7 +5,7 @@ import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
-import model.Toy;
+import domain.Toy;
 import org.junit.jupiter.api.Test;
 import repository.ToyRepository;
 

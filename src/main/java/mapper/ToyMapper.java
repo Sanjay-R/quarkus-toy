@@ -2,7 +2,7 @@ package mapper;
 
 import dto.ToyRequestDTO;
 import dto.ToyResponseDTO;
-import model.Toy;
+import domain.Toy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import repository.ToyEntity;

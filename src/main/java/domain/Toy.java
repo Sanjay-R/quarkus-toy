@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

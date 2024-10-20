@@ -6,7 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import mapper.ToyMapper;
-import model.Toy;
+import domain.Toy;
 
 import java.util.List;
 

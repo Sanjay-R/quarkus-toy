@@ -1,6 +1,6 @@
 package factory.domain;
 
-import model.Toy;
+import domain.Toy;
 
 public abstract class ToyDomainFactory {
 
